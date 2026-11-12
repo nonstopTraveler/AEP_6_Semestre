@@ -10,6 +10,8 @@ public class Livro {
     @Id
     private String id;
 
+    private String doadorId;
+
     @NotBlank(message = "O título é obrigatório")
     private String titulo;
 
@@ -84,4 +86,11 @@ public class Livro {
         this.disponivel = disponivel;
     }
 
+    public String getDoadorId() {
+        return doadorId;
+    }
+
+    public void setDoadorId(String doadorId) {
+        this.doadorId = doadorId;
+    }
 }

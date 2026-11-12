@@ -1,62 +1,95 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
-
 <head>
     <meta charset="UTF-8">
-    <title>DoeLivro</title>
-
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DoeLivro | Plataforma de doação</title>
     <link rel="stylesheet" href="style.css">
 </head>
-
 <body>
-
-    <h1>DoeLivro</h1>
-
-    <h2>Cadastrar livro</h2>
-
-    <form>
-
-        <label>Título:</label>
-        <input type="text" id="titulo">
-
-        <br><br>
-
-        <label>Autor:</label>
-        <input type="text" id="autor">
-
-        <br><br>
-
-        <label>Categoria:</label>
-        <input type="text" id="categoria">
-
-        <br><br>
-
-        <label>Estado de conservação:</label>
-        <input type="text" id="estadoConservacao">
-
-        <br><br>
-
-        <label>
-            <input type="checkbox" id="disponivel" checked>
-            Disponível para doação
-        </label>
-
-        <br><br>
-
-        <button type="submit">Cadastrar livro</button>
-
-    </form>
-
-    <hr>
-
-    <h2>Livros cadastrados</h2>
-
-    <div id="listaLivros">
-        Nenhum livro carregado.
+<header class="topo">
+    <div class="container">
+        <p class="marca">DoeLivro</p>
+        <p class="subtitulo">Compartilhe livros. Amplie oportunidades.</p>
+        <nav aria-label="Navegação principal">
+            <a href="#usuarios">Usuários</a>
+            <a href="#livros">Livros</a>
+            <a href="#doacoes">Doações</a>
+        </nav>
     </div>
+</header>
 
-    <script src="script.js"></script>
+<main class="container">
+    <div id="mensagem" class="mensagem" role="status" aria-live="polite"></div>
 
+    <section id="usuarios" class="painel">
+        <div class="cabecalho-secao">
+            <div><p class="sobretitulo">COMUNIDADE</p><h2>Usuários</h2></div>
+            <p>Cadastre quem deseja doar ou receber livros.</p>
+        </div>
+        <form id="formUsuario" class="grade-form">
+            <input type="hidden" id="usuarioId">
+            <label>Nome<input id="nome" required maxlength="120"></label>
+            <label>E-mail<input id="email" type="email" required maxlength="160"></label>
+            <label>Telefone<input id="telefone" maxlength="30"></label>
+            <label>Cidade<input id="cidade" maxlength="100"></label>
+            <label>Estado<input id="estado" maxlength="2" placeholder="PR"></label>
+            <details class="endereco">
+                <summary>Adicionar endereço (opcional)</summary>
+                <div class="grade-form">
+                    <label>Rua<input id="rua"></label>
+                    <label>Número<input id="numero"></label>
+                    <label>Complemento<input id="complemento"></label>
+                    <label>Bairro<input id="bairro"></label>
+                    <label>Cidade do endereço<input id="cidadeEndereco"></label>
+                    <label>Estado do endereço<input id="estadoEndereco" maxlength="2"></label>
+                    <label>CEP<input id="cep"></label>
+                </div>
+            </details>
+            <div class="acoes-form">
+                <button type="submit" id="botaoUsuario">Cadastrar usuário</button>
+                <button type="button" class="secundario" id="cancelarEdicaoUsuario" hidden>Cancelar edição</button>
+            </div>
+        </form>
+        <div id="listaUsuarios" class="lista"></div>
+    </section>
+
+    <section id="livros" class="painel">
+        <div class="cabecalho-secao">
+            <div><p class="sobretitulo">CATÁLOGO</p><h2>Livros</h2></div>
+            <p>Registre os livros disponíveis para doação.</p>
+        </div>
+        <form id="formLivro" class="grade-form">
+            <input type="hidden" id="livroId">
+            <label>Título<input id="titulo" required maxlength="180"></label>
+            <label>Autor<input id="autor" required maxlength="140"></label>
+            <label>Categoria<input id="categoria" required maxlength="80"></label>
+            <label>Estado de conservação<input id="estadoConservacao" required placeholder="Novo, bom, usado..."></label>
+            <label>Doador (opcional)<select id="doadorLivro"><option value="">Não associado</option></select></label>
+            <label class="checkbox"><input type="checkbox" id="disponivel" checked> Disponível para doação</label>
+            <div class="acoes-form">
+                <button type="submit" id="botaoLivro">Cadastrar livro</button>
+                <button type="button" class="secundario" id="cancelarEdicaoLivro" hidden>Cancelar edição</button>
+            </div>
+        </form>
+        <div id="listaLivros" class="lista"></div>
+    </section>
+
+    <section id="doacoes" class="painel">
+        <div class="cabecalho-secao">
+            <div><p class="sobretitulo">CIRCULAÇÃO</p><h2>Doações</h2></div>
+            <p>Relacione um livro a um doador e acompanhe o histórico.</p>
+        </div>
+        <form id="formDoacao" class="grade-form">
+            <label>Livro<select id="livroDoacao" required><option value="">Selecione um livro</option></select></label>
+            <label>Doador<select id="doadorDoacao" required><option value="">Selecione um usuário</option></select></label>
+            <div class="acoes-form"><button type="submit">Registrar doação</button></div>
+        </form>
+        <div class="legenda-status"><span>DISPONIVEL</span><span>RESERVADO</span><span>DOADO</span><span>CANCELADO</span></div>
+        <div id="listaDoacoes" class="lista"></div>
+    </section>
+</main>
+<footer><div class="container">DoeLivro · Projeto acadêmico alinhado à ODS 4 — Educação de Qualidade.</div></footer>
+<script src="script.js"></script>
 </body>
-
 </html>

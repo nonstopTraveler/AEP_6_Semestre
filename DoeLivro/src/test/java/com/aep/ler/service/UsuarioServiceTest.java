@@ -2,6 +2,8 @@ package com.aep.ler.service;
 
 import com.aep.ler.model.Usuario;
 import com.aep.ler.repository.UsuarioRepository;
+import com.aep.ler.repository.LivroRepository;
+import com.aep.ler.repository.DoacaoRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -21,6 +23,12 @@ class UsuarioServiceTest {
 
     @Mock
     private UsuarioRepository usuarioRepository;
+
+    @Mock
+    private LivroRepository livroRepository;
+
+    @Mock
+    private DoacaoRepository doacaoRepository;
 
     @InjectMocks
     private UsuarioService usuarioService;
@@ -127,4 +135,13 @@ class UsuarioServiceTest {
         assertFalse(usuarioService.excluir("99"));
         verify(usuarioRepository, never()).deleteById("99");
     }
+
+    @Test
+    void naoDeveExcluirUsuarioAssociadoAUmLivro() {
+        when(usuarioRepository.existsById("1")).thenReturn(true);
+        when(livroRepository.existsByDoadorId("1")).thenReturn(true);
+        assertThrows(IllegalStateException.class, () -> usuarioService.excluir("1"));
+        verify(usuarioRepository, never()).deleteById("1");
+    }
+
 }
